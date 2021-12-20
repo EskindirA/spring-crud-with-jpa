@@ -3,6 +3,8 @@ package esk.crudexample.crud.esk.crudexample.crud.student;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +37,12 @@ public class StudentService {
         }
         studentRepository.deleteById(studentId);
     }
+
+    @Transactional
+    public void updateStudent(Student student) {
+        Student s = studentRepository.findById(student.getId()).get();
+        s.setName(student.getName());
+        s.setEmail(student.getEmail());
+    }
+
 }
